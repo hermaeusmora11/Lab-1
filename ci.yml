@@ -1,0 +1,27 @@
+name: C CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning a repository
+      uses: actions/checkout@v3
+
+    - name: Installing dependecies
+      run: |
+        sudo apt update
+        sudo apt install -y gcc make clang-format
+
+    - name: Format check
+      run: make format-check
+
+    - name: Assembly
+      run: make
+
+    - name: Tests
+      run: make test
